@@ -53,18 +53,9 @@ devops-project/
 
 ## CI/CD Workflow Diagram
 
-![img.png](img.png)
+<img src="images/img.png" width="600">
 ---
 
-## Prerequisites
-
-- Ubuntu 20.04+
-- Python 3.10+
-- pip3
-- Ansible — `sudo apt install ansible -y`
-- Git
-
----
 
 ## Step 1 — Clone the repository
 
@@ -91,7 +82,7 @@ python3 -m pytest tests/ -v
 
 All 4 tests should pass.
 
-![img_1.png](images/img_1.png)
+<img src="images/img_11.png" width="1200">
 ---
 
 ## Step 4 — Run the app locally
@@ -119,7 +110,7 @@ What it does:
 - Deploys `health_check.py` to `/opt/devops-app/`
 - Schedules a cron job to run the health check every 5 minutes
 
-![img_1.png](img_1.png)
+<img src="images/img_1.png" width="1200">
 ---
 
 ## Step 6 — CI Pipeline
@@ -133,7 +124,7 @@ Pipeline steps:
 4. Run `flake8` linter on `app/` and `tests/`
 5. Run `pytest` unit tests
 
-![img_2.png](img_2.png)
+<img src="images/img_2.png" width="600">
 
 ---
 
@@ -148,8 +139,8 @@ How it works:
 2. Deploys new code to the idle slot
 3. Starts the idle slot as a systemd service
 4. Runs a health check against the `/health` endpoint
-5. If healthy — switches active slot, stops old slot
-6. If unhealthy — aborts, old slot keeps serving traffic
+5. If healthy - switches active slot, stops old slot
+6. If unhealthy - aborts, old slot keeps serving traffic
 
 | Slot | Port | Badge color |
 |------|------|-------------|
@@ -158,17 +149,21 @@ How it works:
 
 Every deployment flips between slots with zero downtime.
 
-![img_4.png](img_4.png)
-
 First deploy to green slot:
 
-![img_3.png](img_3.png)
+<img src="images/img_4.png" width="1200">
+
+Go to http://localhost:5001/
+
+<img src="images/img_3.png" width="600">
 
 Now after some change is done and pushed to repository we get following results:
 
-![img_5.png](img_5.png)
+<img src="images/img_5.png" width="1200">
 
-![img_6.png](img_6.png)
+Go to http://localhost:5000/
+
+<img src="images/img_6.png" width="600">
 
 ---
 
@@ -180,12 +175,17 @@ To instantly revert to the previous slot:
 ansible-playbook -i ansible/inventory.ini ansible/rollback.yml --ask-become-pass
 ```
 
-This starts the previously stopped slot, health checks it, switches traffic back, and stops the broken slot.
+This starts the previously stopped slot, health checks it, switches traffic back and stops the broken slot.
 
-![img_7.png](img_7.png)
+<img src="images/img_7.png" width="1200">
 
+Blue slot is now down when you go to http://localhost:5000/:
 
-![Ansible rollback](screenshots/ansible_rollback.png)
+<img src="images/img_8.png" width="600">
+
+Green slot is now active when you go to http://localhost:5001/:
+
+<img src="images/img_9.png" width="600">
 
 ---
 
@@ -199,6 +199,8 @@ Run manually:
 python3 /opt/devops-app/health_check.py
 ```
 
+![images/img_10.png](images/img_10.png)
+
 View the log:
 
 ```bash
@@ -206,3 +208,22 @@ cat /var/log/devops-app/health.log
 ```
 
 Example output:
+
+![images/img_12.png](images/img_12.png)
+
+
+## Branch Strategy & Merging
+
+All development happens on `dev`. Once CI passes, changes are merged to `main` via Pull Request.
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Stable, production-ready code only |
+| `dev` | All active development happens here |
+
+**To merge dev into main:**
+1. Push your changes to `dev`
+2. Go to GitHub → Pull Requests → New Pull Request
+3. Base: `main` ← Compare: `dev`
+4. Wait for CI to go green
+5. Merge
