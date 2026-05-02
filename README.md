@@ -227,3 +227,8 @@ All development happens on `dev`. Once CI passes, changes are merged to `main` v
 3. Base: `main` ← Compare: `dev`
 4. Wait for CI to go green
 5. Merge
+
+<img src="images/img_13.png" width="600">
+
+
+<img src="images/img_14.png" width="700">
