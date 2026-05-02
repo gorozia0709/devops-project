@@ -23,7 +23,6 @@ def submit():
     return render_template("result.html", name=name, slot=SLOT)
 
 
-
 @app.route("/health")
 def health():
     return {"status": "ok", "slot": SLOT}, 200
