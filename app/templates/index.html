@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>DevOps App</h1>
+        <p class="subtitle">Enter your name to get started</p>
+        <form action="/submit" method="POST">
+            <input type="text" name="name" placeholder="Your name..." required>
+            <button type="submit">Say Hello</button>
+        </form>
+        <a class="link" href="/greet/world">Try /greet/world</a>
+    </div>
+</body>
+</html>
