@@ -9,10 +9,11 @@
       set_fact:
         target_slot: "{{ 'green' if active_slot == 'blue' else 'blue' }}"
         target_port: "{{ 5001 if active_slot == 'blue' else 5000 }}"
+        old_slot: "{{ active_slot }}"
 
     - name: Show deployment info
       debug:
-        msg: "Deploying to {{ target_slot }} (port {{ target_port }}), current active is {{ active_slot }}"
+        msg: "Deploying to {{ target_slot }} (port {{ target_port }}), current active is {{ old_slot }}"
 
     - name: Create target slot directory
       file:
@@ -66,7 +67,7 @@
 
     - name: Stop old slot
       systemd:
-        name: "devops-app-{{ active_slot }}"
+        name: "devops-app-{{ old_slot }}"
         state: stopped
       become: yes
       ignore_errors: yes
