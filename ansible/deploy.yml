@@ -8,12 +8,12 @@
     - name: Determine target slot
       set_fact:
         target_slot: "{{ 'green' if active_slot == 'blue' else 'blue' }}"
-        target_port: "{{ 5001 if active_slot == 'blue' else 5000 }}"
+        app_port: "{{ 5001 if active_slot == 'blue' else 5000 }}"
         old_slot: "{{ active_slot }}"
 
     - name: Show deployment info
       debug:
-        msg: "Deploying to {{ target_slot }} (port {{ target_port }}), current active is {{ old_slot }}"
+        msg: "Deploying to {{ target_slot }} (port {{ app_port }}), current active is {{ old_slot }}"
 
     - name: Create target slot directory
       file:
@@ -36,7 +36,7 @@
         mode: '0644'
       vars:
         slot: "{{ target_slot }}"
-        port: "{{ target_port }}"
+        app_port: "{{ app_port }}"
       become: yes
 
     - name: Reload systemd
@@ -53,7 +53,7 @@
 
     - name: Wait for target slot to be healthy
       uri:
-        url: "http://localhost:{{ target_port }}/health"
+        url: "http://localhost:{{ app_port }}/health"
         status_code: 200
       register: health
       retries: 5
@@ -74,4 +74,4 @@
 
     - name: Show result
       debug:
-        msg: "Switch complete. Active slot is now {{ target_slot }} on port {{ target_port }}"
+        msg: "Switch complete. Active slot is now {{ target_slot }} on port {{ app_port }}"

@@ -158,7 +158,11 @@ How it works:
 
 Every deployment flips between slots with zero downtime.
 
-![Deploy to green slot](screenshots/deploy_green.png)
+![img_4.png](img_4.png)
+
+First deploy to green slot:
+
+![img_3.png](img_3.png)
 ![Deploy to blue slot](screenshots/deploy_blue.png)
 ![Ansible deploy output](screenshots/ansible_deploy.png)
 

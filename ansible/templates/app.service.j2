@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=www-data
 WorkingDirectory=/opt/devops-app/{{ slot }}
-Environment=PORT={{ port }}
+Environment=PORT={{ app_port }}
 Environment=SLOT={{ slot }}
 ExecStart=/usr/bin/python3 /opt/devops-app/{{ slot }}/app.py
 Restart=always
