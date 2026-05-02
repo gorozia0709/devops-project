@@ -18,7 +18,14 @@ A complete DevOps pipeline using Python/Flask, Ansible and GitHub Actions with b
 | Process management | systemd |
 | Monitoring | Python script + cron |
 
----
+
+## Prerequisites
+
+- Linux environment (Ubuntu 20.04+ recommended, or WSL2 on Windows)
+- Python 3.10+
+- pip3
+- Ansible — `sudo apt install ansible -y` (note: Ansible does not run natively on Windows, WSL2 or a Linux VM is required)
+- Git
 
 ## Project Structure
 ```
