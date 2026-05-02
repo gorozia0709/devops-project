@@ -1,0 +1,13 @@
+[Unit]
+Description=DevOps App - {{ slot }} slot
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/opt/devops-app/{{ slot }}
+Environment=PORT={{ port }}
+ExecStart=/usr/bin/python3 /opt/devops-app/{{ slot }}/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
