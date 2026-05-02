@@ -9,10 +9,11 @@
       set_fact:
         previous_slot: "{{ 'green' if active_slot == 'blue' else 'blue' }}"
         previous_port: "{{ 5001 if active_slot == 'blue' else 5000 }}"
+        current_slot: "{{ active_slot }}"
 
     - name: Show rollback info
       debug:
-        msg: "Rolling back from {{ active_slot }} to {{ previous_slot }} (port {{ previous_port }})"
+        msg: "Rolling back from {{ current_slot }} to {{ previous_slot }} (port {{ previous_port }})"
 
     - name: Start previous slot
       systemd:
@@ -36,7 +37,7 @@
 
     - name: Stop current broken slot
       systemd:
-        name: "devops-app-{{ active_slot }}"
+        name: "devops-app-{{ current_slot }}"
         state: stopped
       become: yes
       ignore_errors: yes

@@ -163,8 +163,12 @@ Every deployment flips between slots with zero downtime.
 First deploy to green slot:
 
 ![img_3.png](img_3.png)
-![Deploy to blue slot](screenshots/deploy_blue.png)
-![Ansible deploy output](screenshots/ansible_deploy.png)
+
+Now after some change is done and pushed to repository we get following results:
+
+![img_5.png](img_5.png)
+
+![img_6.png](img_6.png)
 
 ---
 
@@ -177,6 +181,9 @@ ansible-playbook -i ansible/inventory.ini ansible/rollback.yml --ask-become-pass
 ```
 
 This starts the previously stopped slot, health checks it, switches traffic back, and stops the broken slot.
+
+![img_7.png](img_7.png)
+
 
 ![Ansible rollback](screenshots/ansible_rollback.png)
 
