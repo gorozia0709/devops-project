@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <title>DevOps App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .slot-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: {{ '#2563eb' if slot == 'blue' else '#16a34a' }};
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="card">
+        <span class="slot-badge">{{ slot }} slot</span>
         <h1>DevOps App</h1>
         <p class="subtitle">Enter your name to get started</p>
         <form action="/submit" method="POST">
             <input type="text" name="name" placeholder="Your name..." required>
-            <button type="submit">Say Hello</button>
+            <button type="submit" style="background: {{ '#2563eb' if slot == 'blue' else '#16a34a' }}">
+                Say Hello
+            </button>
         </form>
         <a class="link" href="/greet/world">Try /greet/world</a>
     </div>
