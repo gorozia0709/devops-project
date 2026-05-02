@@ -20,8 +20,8 @@
 <body>
     <div class="card">
         <span class="slot-badge">{{ slot }} slot</span>
-        <h1>DevOps App</h1>
-        <p class="subtitle">Enter your name to get started</p>
+        <h1>DevOps App v2</h1>
+        <p class="subtitle">Version 2 — deployed to blue slot</p>
         <form action="/submit" method="POST">
             <input type="text" name="name" placeholder="Your name..." required>
             <button type="submit" style="background: {{ '#2563eb' if slot == 'blue' else '#16a34a' }}">
