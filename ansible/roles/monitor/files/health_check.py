@@ -2,19 +2,24 @@ import urllib.request
 import datetime
 import sys
 
-URL = "http://localhost:5000/health"
+PORTS = [5000, 5001]
 
 
 def check():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    try:
-        with urllib.request.urlopen(URL, timeout=5) as response:
-            if response.status == 200:
-                print(f"[{timestamp}] OK - {URL} returned 200")
-            else:
-                print(f"[{timestamp}] WARN - {URL} returned {response.status}")
-    except Exception as e:
-        print(f"[{timestamp}] FAIL - {URL} unreachable: {e}")
+    any_ok = False
+    for port in PORTS:
+        url = f"http://localhost:{port}/health"
+        try:
+            with urllib.request.urlopen(url, timeout=5) as response:
+                if response.status == 200:
+                    print(f"[{timestamp}] OK - {url} returned 200")
+                    any_ok = True
+        except Exception:
+            print(f"[{timestamp}] FAIL - {url} unreachable")
+
+    if not any_ok:
+        print(f"[{timestamp}] CRITICAL - no slots responding")
         sys.exit(1)
 
 
