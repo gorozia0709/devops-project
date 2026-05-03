@@ -219,6 +219,17 @@ Example output:
 ![images/img_12.png](images/img_12.png)
 
 
+### Form submission demo
+
+Entering a name on the form:
+
+<img src="images/img_15.png" width="600">
+
+Result page after submitting:
+
+<img src="images/img_16.png" width="600">
+
+
 ## Branch Strategy & Merging
 
 All development happens on `dev`. Once CI passes, changes are merged to `main` via Pull Request.
